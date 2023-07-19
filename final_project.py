@@ -4,7 +4,12 @@
 
 import copy
 
-gb = [['_' for x in range(3)] for y in range(3)]
+gb = [ ['_']*3 for i in range(3)]
+
+gb[0][0] = '0'
+gb[0][1] = 'X'
+gb[1][1] = 'X'
+gb[2][1] = 'X'
 
 # gb = [['1','2','3'],
 #       ['4','5','6'],
@@ -17,14 +22,6 @@ def resetGame(arr):
     for i in range(len(arr)):
         for j in range(len(arr[i])):
             arr[i][j] = '_'
-
-gb[0][0] = 'X'
-
-print("Before reset:")
-print(gb)
-resetGame(gb)
-print("After reset:")
-print(gb)
     
 # TODO: Refactor this
 def check_for_win():
@@ -36,35 +33,49 @@ def check_for_win():
        gb[0][3] == gb[1][3] == gb[2][3] or # vertical
        gb[0][0] == gb[1][1] == gb[2][2] or # diagonal
        gb[0][2] == gb[1][1] == gb[2][0]):  # diagonal
-        print("GAME OVER!")
-    
-def playGame():
-    finished = False
-    while(finished == False):
-          print("not finished")
-          finished = True
-    # show board
-    # get user input
-    # choose X or O
-    # loop: while(running)
-        # choose move
-        # change players
-        # if game finishes, end and announce winner
-          
+        return True
+    # for i in range(len(arr)):
+    #     for j in range(len(arr[i])):
+    #         arr[i][j] # horizontal iteration
+    #         arr[j][i] # vertical iteration
+
+
 
 def printGame(arr):
     for i in arr:
         for j in i:
             print(j,' ', end=' ')
         print('')
+
+def playGame():
+    finished = False
+    # show board
+    printGame(gb)
+    # get user input
+    # choose X or O
+    # loop: while(running)
+    while(finished == False):
+        print("not finished")
+        # choose move
+        # change players
+        # if game finishes, end and announce winner
+        if(check_for_win()):
+            # break while loop
+            finished = True
+            # Display winner (last person to play)
+
+
+
+# printGame(gb)
+playGame()
+
+
     # HARDCODE BOARD?
     # print(' ',gb[0][0],'|',gb[0][1],'|',gb[0][2])
     # print('-------------')
     # print(' ',gb[1][0],'|',gb[1][1],'|',gb[1][2])
     # print('-------------')
     # print(' ',gb[2][0],'|',gb[2][1],'|',gb[2][2])
-
-printGame(gb)
 
 """
 (Project: Two-Player, Two-Dimensional Tic-Tac-Toe) Write a script to play two-
