@@ -2,26 +2,32 @@
 # COSC 6375
 # Final Project
 
-gb = [[' ' for x in range(3)] for y in range(3)]
+import copy
+
+gb = [['_' for x in range(3)] for y in range(3)]
 
 # gb = [['1','2','3'],
 #       ['4','5','6'],
 #       ['7','8','9']]
 # gb = [[' ',' ',' '],
-#         [' ',' ',' '],
-#         [' ',' ',' ']]
+#       [' ',' ',' '],
+#       [' ',' ',' ']]
 
 def resetGame(arr):
-    for i in arr:
-        for j in i:
-            j = ' '
+    for i in range(len(arr)):
+        for j in range(len(arr[i])):
+            arr[i][j] = '_'
 
+gb[0][0] = 'X'
+
+print("Before reset:")
 print(gb)
 resetGame(gb)
+print("After reset:")
 print(gb)
     
 # TODO: Refactor this
-def check_gb():
+def check_for_win():
     if(gb[0][0] == gb[0][1] == gb[0][2] or # horizontal
        gb[1][0] == gb[1][1] == gb[1][2] or # horizontal
        gb[2][0] == gb[2][1] == gb[2][2] or # horizontal
@@ -50,7 +56,7 @@ def printGame(arr):
     for i in arr:
         for j in i:
             print(j,' ', end=' ')
-        print('\n')
+        print('')
     # HARDCODE BOARD?
     # print(' ',gb[0][0],'|',gb[0][1],'|',gb[0][2])
     # print('-------------')
