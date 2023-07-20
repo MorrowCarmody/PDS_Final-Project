@@ -2,33 +2,62 @@
 # COSC 6375
 # Final Project
 
-game = [['1','2','3'],
-        ['4','5','6'],
-        ['7','8','9']]
+import re
 
 def choose_mark():
-    # return array with p1 in [0] and p2 in [1]
     choosing = True
     print('Would you like to play as X or O?')
     while(choosing):
         choice = input().lower()
         if(choice == 'x'):
             choosing = False
-            print('Player 1 has selected . Player 2 is O.')
-            return 'X'
+            return ['X','O']
         if(choice == 'o'):
             choosing = False
-            print('Player 1 has selected O. Player 2 is X.')
-            return 'O'
+            return ['O','X']
         else:
-            print('Error: Invalid selection. Please select either X or O.')
+            print('Invalid selection. Please select either X or O.')
+
+def make_move(game, player):
+    choosing = True
+    print(f'It is {player}\'s turn.')
+    print('Enter a number for the column and a number for the row separated by a comma.')
+    while(choosing):
+        move = input()
+        # TODO: error handling for input
+        if not(re.match('[0-2],[0-2]', move)):
+            print('Invalid selection. Please enter a number for the column and a number for the row separated by a comma.')
+        else:
+            i = int(move.split(',')[0])
+            j = int(move.split(',')[1])
+            if(game[i][j] == ' '):
+                game[i][j] = player
+                choosing = False
+                print(game)
+                if(player == 'X'):
+                    make_move(game, 'O')
+                else:
+                    make_move(game, 'X')
+            else:
+                print('Invalid selection. The specified space is already taken.')
+
+make_move([[' ',' ',' '],
+            [' ',' ',' '],
+            [' ',' ',' ']], 'X')
+
+def print_game(game):
+    print(' ',game[0][0],'|',game[0][1],'|',game[0][2])
+    print('-------------')
+    print(' ',game[1][0],'|',game[1][1],'|',game[1][2])
+    print('-------------')
+    print(' ',game[2][0],'|',game[2][1],'|',game[2][2])
 
 def reset_game():
     return [[' ',' ',' '],
             [' ',' ',' '],
             [' ',' ',' ']]
     
-def check_for_win():
+def check_for_win(game):
     if(game[0][0] == game[0][1] == game[0][2] or # horizontal
        game[1][0] == game[1][1] == game[1][2] or # horizontal
        game[2][0] == game[2][1] == game[2][2] or # horizontal
@@ -38,5 +67,17 @@ def check_for_win():
        game[0][0] == game[1][1] == game[2][2] or # diagonal
        game[0][2] == game[1][1] == game[2][0]):  # diagonal
         return True
-    
-player_one_var = choose_mark()
+
+def play_game():
+    game = [[' ',' ',' '],
+            [' ',' ',' '],
+            [' ',' ',' ']]
+    player_marks = choose_mark()
+    player_one_var = player_marks[0]
+    player_two_var = player_marks[1]
+    print(f'Player one has selected {player_one_var}, Player two is {player_two_var}.')
+    game = make_move(game, player_one_var)
+    print_game(game)
+
+
+# play_game()
