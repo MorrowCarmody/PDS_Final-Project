@@ -2,8 +2,6 @@
 # COSC 6375
 # Final Project
 
-import copy
-
 gb = [ ['_']*3 for i in range(3)]
 
 gb[0][0] = '0'
