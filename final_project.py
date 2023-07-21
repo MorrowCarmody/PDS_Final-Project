@@ -5,7 +5,7 @@
 import re
 
 def choose_mark():
-    """Allows the player to select X or O to play as."""
+    """Allows the player to select their mark and returns an array of form [player_one_mark, player_two_mark]."""
     print('Would you like to play as X or O?')
     while(True):
         choice = input().lower().replace(' ', '')
@@ -34,7 +34,7 @@ def check_for_win(game, player):
         print('TIE!')
         return True
 
-def get_move_input(game):
+def get_move_input(game_state):
     """Returns an array of where the player wants to add their mark of form [column][row]."""
     # Note: I chose the range 1-3 since most users would be unfamiliar with zero-based numbering
     print('Enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
@@ -43,25 +43,25 @@ def get_move_input(game):
         if(re.match('[1-3],[1-3]', move)):
             i = int(move.split(',')[0]) - 1
             j = int(move.split(',')[1]) - 1
-            if(game[i][j] == ' '):
+            if(game_state[i][j] == ' '):
                 return[i, j]
             else:
                 print('Invalid selection. The specified space is already taken.')
         else:
             print('Invalid selection. Please enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
 
-def make_move(game, player):
+def make_move(game_state, player):
     """Adds the player's selected move to the game."""
     print(f'\nIt is {player}\'s turn.')
-    move = get_move_input(game)
-    game[move[0]][move[1]] = player
-    print_game(game)
-    if(check_for_win(game, player)):
+    move = get_move_input(game_state)
+    game_state[move[0]][move[1]] = player
+    print_game(game_state)
+    if(check_for_win(game_state, player)):
         print('GAME OVER!')
     elif(player == 'X'):
-        make_move(game, 'O')
+        make_move(game_state, 'O')
     else:
-        make_move(game, 'X')
+        make_move(game_state, 'X')
 
 def print_game(game):
     """Prints the current state of the game."""
@@ -73,13 +73,11 @@ def print_game(game):
 
 def play_tic_tac_toe():
     """Starts a game of tic-tac-toe."""
-    game = [[' ',' ',' '],
-            [' ',' ',' '],
-            [' ',' ',' ']]
+    game_state = [[' ',' ',' '],
+                  [' ',' ',' '],
+                  [' ',' ',' ']]
     player_marks = choose_mark()
-    player_one_var = player_marks[0]
-    player_two_var = player_marks[1]
-    print(f'Player one has selected {player_one_var}, Player two is {player_two_var}.')
-    game = make_move(game, player_one_var)
+    print(f'Player one has selected {player_marks[0]}, Player two is {player_marks[1]}.')
+    make_move(game_state, player_marks[0])
 
 play_tic_tac_toe()
