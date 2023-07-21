@@ -27,17 +27,20 @@ def check_for_win(game, player):
        game[0][2] != ' ' and game[0][2] == game[1][2] == game[2][2] or # vertical
        game[0][0] != ' ' and game[0][0] == game[1][1] == game[2][2] or # diagonal
        game[0][2] != ' ' and game[0][2] == game[1][1] == game[2][0]):  # diagonal
+        print_game(game)
         print(f'{player} WINS!')
         return True
     # Check for tie
     elif not any(' ' in x for x in game):
+        print_game(game)
         print('TIE!')
         return True
 
 def get_move_input(game_state):
     """Returns an array of where the player wants to add their mark of form [column][row]."""
     # Note: I chose the range 1-3 since most users would be unfamiliar with zero-based numbering
-    print('Enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
+    print('Enter a number for the row and a number for the column separated by a comma. (Ex: 1,3)')
+    print_game(game_state)
     while(True):
         move = input().replace(' ', '')
         if(re.match('[1-3],[1-3]', move)):
@@ -48,14 +51,13 @@ def get_move_input(game_state):
             else:
                 print('Invalid selection. The specified space is already taken.')
         else:
-            print('Invalid selection. Please enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
+            print('Invalid selection. Please enter a number for the row and a number for the column separated by a comma. (Ex: 1,3)')
 
 def make_move(game_state, player):
     """Adds the player's selected move to the game."""
     print(f'\nIt is {player}\'s turn.')
     move = get_move_input(game_state)
     game_state[move[0]][move[1]] = player
-    print_game(game_state)
     if(check_for_win(game_state, player)):
         print('GAME OVER!')
     elif(player == 'X'):
@@ -76,8 +78,12 @@ def play_tic_tac_toe():
     game_state = [[' ',' ',' '],
                   [' ',' ',' '],
                   [' ',' ',' ']]
+    print('WELCOME TO TIC-TAC-TOE!')
     player_marks = choose_mark()
     print(f'Player one has selected {player_marks[0]}, Player two is {player_marks[1]}.')
     make_move(game_state, player_marks[0])
 
 play_tic_tac_toe()
+# Clarify numb4er options and have game show example of outcome before game is initialized.
+# Add "tutorial" example
+# Add option to continue playing
