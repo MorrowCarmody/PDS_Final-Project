@@ -67,6 +67,11 @@ class TicTacToe:
         self.game_state[move[0]][move[1]] = player
         if(self.__check_for_win(self, player)):
             print('GAME OVER!')
+            print('Would you like to play again? (y/n)')
+            answer = input()
+            if(answer == 'y'):
+                self.__reset_game(self)
+                self.play_game()
         elif(player == 'X'):
             self.__make_move(self, 'O')
         else:
@@ -87,6 +92,11 @@ class TicTacToe:
         game_example = copy.deepcopy(self.game_state)
         game_example[0][2] = 'X'
         self.__print_game(game_example)
+    
+    def __reset_game(self):
+        for i in range(len(self.game_state)):
+            for j in range(len(self.game_state[i])):
+                self.game_state[i][j] = ' '
 
     @classmethod
     def play_game(self):
