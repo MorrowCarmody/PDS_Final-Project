@@ -34,34 +34,34 @@ def check_for_win(game, player):
         print('TIE!')
         return True
 
-def get_move_input():
+def get_move_input(game):
     """Returns an array of where the player wants to add their mark of form [column][row]."""
     # Note: I chose the range 1-3 since most users would be unfamiliar with zero-based numbering
     print('Enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
     while(True):
         move = input().replace(' ', '')
         if(re.match('[1-3],[1-3]', move)):
-            # convert to array of zero-based integers
-            return [int(move.split(',')[0]) - 1, int(move.split(',')[1]) - 1]
-        print('Invalid selection. Please enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
+            i = int(move.split(',')[0]) - 1
+            j = int(move.split(',')[1]) - 1
+            if(game[i][j] == ' '):
+                return[i, j]
+            else:
+                print('Invalid selection. The specified space is already taken.')
+        else:
+            print('Invalid selection. Please enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
 
 def make_move(game, player):
     """Adds the player's selected move to the game."""
     print(f'\nIt is {player}\'s turn.')
-    while(True):
-        move = get_move_input()
-        if(game[move[0]][move[1]] == ' '):
-            game[move[0]][move[1]] = player
-            print_game(game)
-            if(check_for_win(game, player)):
-                print('GAME OVER!')
-            elif(player == 'X'):
-                make_move(game, 'O')
-            else:
-                make_move(game, 'X')
-            break
-        else:
-            print('Invalid selection. The specified space is already taken.')
+    move = get_move_input(game)
+    game[move[0]][move[1]] = player
+    print_game(game)
+    if(check_for_win(game, player)):
+        print('GAME OVER!')
+    elif(player == 'X'):
+        make_move(game, 'O')
+    else:
+        make_move(game, 'X')
 
 def print_game(game):
     """Prints the current state of the game."""
