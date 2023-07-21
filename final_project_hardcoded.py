@@ -25,7 +25,7 @@ def check_for_win(game):
        game[2][0] == game[2][1] == game[2][2] or # horizontal
        game[0][0] == game[1][0] == game[2][0] or # vertical
        game[0][1] == game[1][1] == game[2][1] or # vertical
-       game[0][3] == game[1][3] == game[2][3] or # vertical
+       game[0][2] == game[1][2] == game[2][2] or # vertical
        game[0][0] == game[1][1] == game[2][2] or # diagonal
        game[0][2] == game[1][1] == game[2][0]):  # diagonal
         print('GAME OVER!')
