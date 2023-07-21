@@ -1,135 +1,84 @@
-# # Matt Carmody
-# # COSC 6375
-# # Final Project
+# Matt Carmody
+# COSC 6375
+# Final Project
 
-# gb = [ ['_']*3 for i in range(3)]
+import re
 
-# gb[0][0] = '0'
-# gb[0][1] = 'X'
-# gb[1][1] = 'X'
-# gb[2][1] = 'X'
+def choose_mark():
+    choosing = True
+    print('Would you like to play as X or O?')
+    while(choosing):
+        choice = input().lower()
+        if(choice == 'x'):
+            choosing = False
+            return ['X','O']
+        if(choice == 'o'):
+            choosing = False
+            return ['O','X']
+        else:
+            print('Invalid selection. Please select either X or O.')
 
-# # gb = [['1','2','3'],
-# #       ['4','5','6'],
-# #       ['7','8','9']]
-# # gb = [[' ',' ',' '],
-# #       [' ',' ',' '],
-# #       [' ',' ',' ']]
+# TODO: Refactor this
+def check_for_win(game, player):
+    if(game[0][0] != ' ' and game[0][0] == game[0][1] == game[0][2] or # horizontal
+       game[1][0] != ' ' and game[1][0] == game[1][1] == game[1][2] or # horizontal
+       game[2][0] != ' ' and game[2][0] == game[2][1] == game[2][2] or # horizontal
+       game[0][0] != ' ' and game[0][0] == game[1][0] == game[2][0] or # vertical
+       game[0][1] != ' ' and game[0][1] == game[1][1] == game[2][1] or # vertical
+       game[0][2] != ' ' and game[0][2] == game[1][2] == game[2][2] or # vertical
+       game[0][0] != ' ' and game[0][0] == game[1][1] == game[2][2] or # diagonal
+       game[0][2] != ' ' and game[0][2] == game[1][1] == game[2][0]):  # diagonal
+        print(f'{player} WINS!')
+        return True
+    # Check for tie
+    elif not any(' ' in x for x in game):
+        print('TIE!')
+        return True
 
-# def resetGame(arr):
-#     for i in range(len(arr)):
-#         for j in range(len(arr[i])):
-#             arr[i][j] = '_'
-    
-# # TODO: Refactor this
-# def check_for_win():
-#     if(gb[0][0] == gb[0][1] == gb[0][2] or # horizontal
-#        gb[1][0] == gb[1][1] == gb[1][2] or # horizontal
-#        gb[2][0] == gb[2][1] == gb[2][2] or # horizontal
-#        gb[0][0] == gb[1][0] == gb[2][0] or # vertical
-#        gb[0][1] == gb[1][1] == gb[2][1] or # vertical
-#        gb[0][3] == gb[1][3] == gb[2][3] or # vertical
-#        gb[0][0] == gb[1][1] == gb[2][2] or # diagonal
-#        gb[0][2] == gb[1][1] == gb[2][0]):  # diagonal
-#         return True
-#     # for i in range(len(arr)):
-#     #     for j in range(len(arr[i])):
-#     #         arr[i][j] # horizontal iteration
-#     #         arr[j][i] # vertical iteration
+def get_move():
+    # Note: I chose the range 1-3 since most users would be unfamiliar with zero-based numbering
+    print('Enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
+    while(True):
+        move = input()
+        if(re.match('[1-3],[1-3]', move)):
+            break
+        print('Invalid selection. Please enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
+    return move
 
+def make_move(game, player):
+    print(f'\nIt is {player}\'s turn.')
+    while(True):
+        move = get_move()
+        i = int(move.split(',')[0]) - 1
+        j = int(move.split(',')[1]) - 1
+        if(game[i][j] == ' '):
+            game[i][j] = player
+            print_game(game)
+            if(check_for_win(game, player)):
+                print('GAME OVER!')
+            elif(player == 'X'):
+                make_move(game, 'O')
+            else:
+                make_move(game, 'X')
+            break
+        else:
+            print('Invalid selection. The specified space is already taken.')
 
+def print_game(game):
+    print(' ',game[0][0],'|',game[0][1],'|',game[0][2])
+    print('-------------')
+    print(' ',game[1][0],'|',game[1][1],'|',game[1][2])
+    print('-------------')
+    print(' ',game[2][0],'|',game[2][1],'|',game[2][2])
 
-# def printGame(arr):
-#     for i in arr:
-#         for j in i:
-#             print(j,' ', end=' ')
-#         print('')
+def play_game():
+    game = [[' ',' ',' '],
+            [' ',' ',' '],
+            [' ',' ',' ']]
+    player_marks = choose_mark()
+    player_one_var = player_marks[0]
+    player_two_var = player_marks[1]
+    print(f'Player one has selected {player_one_var}, Player two is {player_two_var}.')
+    game = make_move(game, player_one_var)
 
-# def playGame():
-#     finished = False
-#     # show board
-#     printGame(gb)
-#     # get user input
-#     # choose X or O
-#     # loop: while(running)
-#     while(finished == False):
-#         print("not finished")
-#         # choose move
-#         # change players
-#         # if game finishes, end and announce winner
-#         if(check_for_win()):
-#             # break while loop
-#             finished = True
-#             # Display winner (last person to play)
-
-
-
-# # printGame(gb)
-# playGame()
-
-
-#     # HARDCODE BOARD?
-#     # print(' ',gb[0][0],'|',gb[0][1],'|',gb[0][2])
-#     # print('-------------')
-#     # print(' ',gb[1][0],'|',gb[1][1],'|',gb[1][2])
-#     # print('-------------')
-#     # print(' ',gb[2][0],'|',gb[2][1],'|',gb[2][2])
-
-# """
-# (Project: Two-Player, Two-Dimensional Tic-Tac-Toe) Write a script to play two-
-# dimensional Tic-Tac-Toe between two human players who alternate entering their moves
-# on the same computer. Use a 3-by-3 two-dimensional array. Each player indicates their
-# moves by entering a pair of numbers representing the row and column indices of the
-# square in which they want to place their mark, either an 'X' or an 'O'. When the first play-
-# er moves, place an 'X' in the specified square. When the second player moves, place an
-# 'O' in the specified square. Each move must be to an empty square. After each move, de-
-# termine whether the game has been won and whether it’s a draw.
-# """
-
-
-# """
-# In this project, you can choose/design any real world application or data analysis using Python
-# programming.
-# Alternatively, you can choose one problem from the exercises in Chapter 4 or any chapter after Chapter 4
-# of the textbook. This textbook has a rich collection of programming exercises, with varying complexities
-# and difficulties. Many problems have labels like
-# Challenge
-# Project
-# Challenge Project
-# Super Challenge Project
-# Research
-# Performance Analysis
-# Intro to Data Science
-# AI Project
-# etc.
-# You can pick any problem. Make sure you choose a project that is challenging enough for your intelligence
-# capacity but also simple enough for the short period of a summer course
-
-# What to Submit:
-# (1) A Project Report
-# If you are to choose/design your own application, you need to describe your problems and solutions in
-# detail. If you are to choose one in the textbook, you need to copy the problem description, and where the
-# problem is located (chapter, problem number and page number).
-# (2) The Code
-# (i)The Jupyter Notebook files (.ijpnb) files, if any. It is alright if you do not use Jupyter Notebook.
-# (ii) The Python script files.
-# Do not zip the files. Submit these files separately.
-# """
-
-
-# """
-# 6.8 (Challenge: Writing the Word Equivalent of a Check Amount) In check-writing
-# systems, it’s crucial to prevent alteration of check amounts. One common security method
-# requires that the amount be written in numbers and spelled out in words as well. Even if
-# someone can alter the numerical amount of the check, it’s tough to change the amount in
-# words. Create a dictionary that maps numbers to their corresponding word equivalents.
-# Write a script that inputs a numeric check amount that’s less than 1000 and uses the dic-
-# tionary to write the word equivalent of the amount. For example, the amount 112.43
-# should be written as
-# ONE HUNDRED TWELVE AND 43/100
-# """
-
-arr = [[' ', ' ', ' '],
-       [' ', ' ', ' '],
-       [' ', ' ', ' ']]
-print(' ' not in arr)
+play_game()
