@@ -32,21 +32,22 @@ def check_for_win(game):
         return True
 
 def get_move():
+    # Note: I chose the range 1-3 since most users would be unfamiliar with zero-based numbering
+    print('Enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
     while(True):
         move = input()
-        if(re.match('[0-2],[0-2]', move)):
+        if(re.match('[1-3],[1-3]', move)):
             break
-        print('Invalid selection. Please enter a number (0-2) for the column and a number for the row separated by a comma.')
+        print('Invalid selection. Please enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
     return move
 
 def make_move(game, player):
     choosing = True
     print(f'It is {player}\'s turn.')
-    print('Enter a number for the column and a number (0-2) for the row separated by a comma.')
     while(choosing):
         move = get_move()
-        i = int(move.split(',')[0])
-        j = int(move.split(',')[1])
+        i = int(move.split(',')[0]) - 1
+        j = int(move.split(',')[1]) - 1
         if(game[i][j] == ' '):
             choosing = False
             game[i][j] = player
