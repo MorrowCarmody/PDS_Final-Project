@@ -22,18 +22,17 @@ class TicTacToe:
             else:
                 print('Invalid selection. Please select either X or O.')
 
-    # TODO: Refactor this
     def __check_for_win(self, player):
         """Determines if a player has won the game."""
         g = self.game_state
         if(g[0][0] != ' ' and g[0][0] == g[0][1] == g[0][2] or # horizontal
-        g[1][0] != ' ' and g[1][0] == g[1][1] == g[1][2] or # horizontal
-        g[2][0] != ' ' and g[2][0] == g[2][1] == g[2][2] or # horizontal
-        g[0][0] != ' ' and g[0][0] == g[1][0] == g[2][0] or # vertical
-        g[0][1] != ' ' and g[0][1] == g[1][1] == g[2][1] or # vertical
-        g[0][2] != ' ' and g[0][2] == g[1][2] == g[2][2] or # vertical
-        g[0][0] != ' ' and g[0][0] == g[1][1] == g[2][2] or # diagonal
-        g[0][2] != ' ' and g[0][2] == g[1][1] == g[2][0]):  # diagonal
+           g[1][0] != ' ' and g[1][0] == g[1][1] == g[1][2] or # horizontal
+           g[2][0] != ' ' and g[2][0] == g[2][1] == g[2][2] or # horizontal
+           g[0][0] != ' ' and g[0][0] == g[1][0] == g[2][0] or # vertical
+           g[0][1] != ' ' and g[0][1] == g[1][1] == g[2][1] or # vertical
+           g[0][2] != ' ' and g[0][2] == g[1][2] == g[2][2] or # vertical
+           g[0][0] != ' ' and g[0][0] == g[1][1] == g[2][2] or # diagonal
+           g[0][2] != ' ' and g[0][2] == g[1][1] == g[2][0]):  # diagonal
             self.__print_game(self.game_state)
             print(f'{player} WINS!')
             return True
