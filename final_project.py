@@ -3,6 +3,7 @@
 # Final Project
 
 import re
+import copy
 
 def choose_mark():
     """Allows the player to select their mark and returns an array of form [player_one_mark, player_two_mark]."""
@@ -73,17 +74,23 @@ def print_game(game):
     print('-------------')
     print(' ',game[2][0],'|',game[2][1],'|',game[2][2])
 
+def show_example(game):
+    print('In this game you will enter a number for the row and a number for the column separated by a comma.')
+    print('For example, input "1,3" will result in the following move:')
+    game_example = copy.deepcopy(game)
+    game_example[0][2] = 'X'
+    print_game(game_example)
+
 def play_tic_tac_toe():
     """Starts a game of tic-tac-toe."""
     game_state = [[' ',' ',' '],
                   [' ',' ',' '],
                   [' ',' ',' ']]
     print('WELCOME TO TIC-TAC-TOE!')
+    show_example(game_state)
     player_marks = choose_mark()
     print(f'Player one has selected {player_marks[0]}, Player two is {player_marks[1]}.')
     make_move(game_state, player_marks[0])
 
 play_tic_tac_toe()
-# Clarify numb4er options and have game show example of outcome before game is initialized.
-# Add "tutorial" example
 # Add option to continue playing
