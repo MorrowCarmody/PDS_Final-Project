@@ -35,7 +35,7 @@ def check_for_win(game, player):
         return True
 
 def get_move_input():
-    """Allows the player to select the space they want to move."""
+    """Returns an array of where the player wants to add their mark of form [column][row]."""
     # Note: I chose the range 1-3 since most users would be unfamiliar with zero-based numbering
     print('Enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
     while(True):
@@ -50,10 +50,8 @@ def make_move(game, player):
     print(f'\nIt is {player}\'s turn.')
     while(True):
         move = get_move_input()
-        i = move[0]
-        j = move[1]
-        if(game[i][j] == ' '):
-            game[i][j] = player
+        if(game[move[0]][move[1]] == ' '):
+            game[move[0]][move[1]] = player
             print_game(game)
             if(check_for_win(game, player)):
                 print('GAME OVER!')
