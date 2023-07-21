@@ -49,10 +49,9 @@ def make_move(game, player):
     """Adds the player's selected move to the game."""
     print(f'\nIt is {player}\'s turn.')
     while(True):
-        move = get_move_input(game)
+        move = get_move_input()
         i = move[0]
         j = move[1]
-        print('i',i,'j',j)
         if(game[i][j] == ' '):
             game[i][j] = player
             print_game(game)
