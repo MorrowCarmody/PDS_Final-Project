@@ -38,15 +38,17 @@ def get_move():
     while(True):
         move = input().replace(' ', '')
         if(re.match('[1-3],[1-3]', move)):
-            return move
+            # convert to array of zero-based integers
+            return [int(move.split(',')[0]) - 1, int(move.split(',')[1]) - 1]
         print('Invalid selection. Please enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
 
 def make_move(game, player):
     print(f'\nIt is {player}\'s turn.')
     while(True):
         move = get_move()
-        i = int(move.split(',')[0]) - 1
-        j = int(move.split(',')[1]) - 1
+        i = move[0]
+        j = move[1]
+        print('i',i,'j',j)
         if(game[i][j] == ' '):
             game[i][j] = player
             print_game(game)
