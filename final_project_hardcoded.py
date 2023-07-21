@@ -19,15 +19,15 @@ def choose_mark():
             print('Invalid selection. Please select either X or O.')
     
 def check_for_win(game):
-    # TODO: check that the spaces aren't blank
-    if(game[0][0] == game[0][1] == game[0][2] or # horizontal
-       game[1][0] == game[1][1] == game[1][2] or # horizontal
-       game[2][0] == game[2][1] == game[2][2] or # horizontal
-       game[0][0] == game[1][0] == game[2][0] or # vertical
-       game[0][1] == game[1][1] == game[2][1] or # vertical
-       game[0][2] == game[1][2] == game[2][2] or # vertical
-       game[0][0] == game[1][1] == game[2][2] or # diagonal
-       game[0][2] == game[1][1] == game[2][0]):  # diagonal
+    # TODO: Refactor this
+    if(game[0][0] != ' ' and game[0][0] == game[0][1] == game[0][2] or # horizontal
+       game[1][0] != ' ' and game[1][0] == game[1][1] == game[1][2] or # horizontal
+       game[2][0] != ' ' and game[2][0] == game[2][1] == game[2][2] or # horizontal
+       game[0][0] != ' ' and game[0][0] == game[1][0] == game[2][0] or # vertical
+       game[0][1] != ' ' and game[0][1] == game[1][1] == game[2][1] or # vertical
+       game[0][2] != ' ' and game[0][2] == game[1][2] == game[2][2] or # vertical
+       game[0][0] != ' ' and game[0][0] == game[1][1] == game[2][2] or # diagonal
+       game[0][2] != ' ' and game[0][2] == game[1][1] == game[2][0]):  # diagonal
         print('GAME OVER!')
         return True
 
