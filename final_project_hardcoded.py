@@ -17,9 +17,10 @@ def choose_mark():
             return ['O','X']
         else:
             print('Invalid selection. Please select either X or O.')
-    
-def check_for_win(game):
-    # TODO: Refactor this
+
+
+# TODO: Refactor this
+def check_for_win(game, player):
     if(game[0][0] != ' ' and game[0][0] == game[0][1] == game[0][2] or # horizontal
        game[1][0] != ' ' and game[1][0] == game[1][1] == game[1][2] or # horizontal
        game[2][0] != ' ' and game[2][0] == game[2][1] == game[2][2] or # horizontal
@@ -28,7 +29,11 @@ def check_for_win(game):
        game[0][2] != ' ' and game[0][2] == game[1][2] == game[2][2] or # vertical
        game[0][0] != ' ' and game[0][0] == game[1][1] == game[2][2] or # diagonal
        game[0][2] != ' ' and game[0][2] == game[1][1] == game[2][0]):  # diagonal
-        print('GAME OVER!')
+        print(f'{player} WINS!')
+        return True
+    # Check for tie
+    elif not any(' ' in x for x in game):
+        print('TIE!')
         return True
 
 def get_move():
@@ -42,22 +47,21 @@ def get_move():
     return move
 
 def make_move(game, player):
-    choosing = True
-    print(f'It is {player}\'s turn.')
-    while(choosing):
+    print(f'\nIt is {player}\'s turn.')
+    while(True):
         move = get_move()
         i = int(move.split(',')[0]) - 1
         j = int(move.split(',')[1]) - 1
         if(game[i][j] == ' '):
-            choosing = False
             game[i][j] = player
             print_game(game)
-            if(check_for_win(game)):
-                print(f'{player} wins!')
+            if(check_for_win(game, player)):
+                print('GAME OVER!')
             elif(player == 'X'):
                 make_move(game, 'O')
             else:
                 make_move(game, 'X')
+            break
         else:
             print('Invalid selection. The specified space is already taken.')
 
