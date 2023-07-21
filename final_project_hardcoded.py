@@ -51,18 +51,15 @@ def make_move(game, player):
         if(game[i][j] == ' '):
             choosing = False
             game[i][j] = player
-            print(game)
-            check_for_win(game)
-            if(player == 'X'):
+            print_game(game)
+            if(check_for_win(game)):
+                print(f'{player} wins!')
+            elif(player == 'X'):
                 make_move(game, 'O')
             else:
                 make_move(game, 'X')
         else:
             print('Invalid selection. The specified space is already taken.')
-
-make_move([[' ',' ',' '],
-            [' ',' ',' '],
-            [' ',' ',' ']], 'X')
 
 def print_game(game):
     print(' ',game[0][0],'|',game[0][1],'|',game[0][2])
@@ -70,12 +67,6 @@ def print_game(game):
     print(' ',game[1][0],'|',game[1][1],'|',game[1][2])
     print('-------------')
     print(' ',game[2][0],'|',game[2][1],'|',game[2][2])
-
-def reset_game():
-    return [[' ',' ',' '],
-            [' ',' ',' '],
-            [' ',' ',' ']]
-
 
 def play_game():
     game = [[' ',' ',' '],
@@ -86,7 +77,5 @@ def play_game():
     player_two_var = player_marks[1]
     print(f'Player one has selected {player_one_var}, Player two is {player_two_var}.')
     game = make_move(game, player_one_var)
-    print_game(game)
 
-
-# play_game()
+play_game()
