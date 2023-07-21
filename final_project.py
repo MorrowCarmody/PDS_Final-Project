@@ -5,15 +5,12 @@
 import re
 
 def choose_mark():
-    choosing = True
     print('Would you like to play as X or O?')
-    while(choosing):
-        choice = input().lower()
+    while(True):
+        choice = input().lower().replace(' ', '')
         if(choice == 'x'):
-            choosing = False
             return ['X','O']
         if(choice == 'o'):
-            choosing = False
             return ['O','X']
         else:
             print('Invalid selection. Please select either X or O.')
@@ -39,11 +36,10 @@ def get_move():
     # Note: I chose the range 1-3 since most users would be unfamiliar with zero-based numbering
     print('Enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
     while(True):
-        move = input()
+        move = input().replace(' ', '')
         if(re.match('[1-3],[1-3]', move)):
-            break
+            return move
         print('Invalid selection. Please enter a number (1-3) for the column and a number (1-3) for the row separated by a comma.')
-    return move
 
 def make_move(game, player):
     print(f'\nIt is {player}\'s turn.')
