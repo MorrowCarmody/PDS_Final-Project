@@ -45,7 +45,6 @@ class TicTacToe:
     def __get_move_input(self):
         """Returns an array of where the player wants to add their mark of form [column][row]."""
         # Note: I chose the range 1-3 since most users would be unfamiliar with zero-based numbering
-        # print('Enter a number for the row and a number for the column separated by a comma. (Ex: 1,3)')
         self.__print_game(self.game_state)
         while(True):
             move = input().replace(' ', '')
@@ -61,7 +60,7 @@ class TicTacToe:
 
     def __make_move(self, player):
         """Adds the player's selected move to the game."""
-        print(f'\nIt is {player}\'s turn.')
+        print(f'\nIt is {player}\'s turn. Please enter your move:')
         move = self.__get_move_input(self)
         self.game_state[move[0]][move[1]] = player
         if(self.__check_for_win(self, player)):
