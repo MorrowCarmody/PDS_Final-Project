@@ -60,7 +60,7 @@ class TicTacToe:
 
     def __make_move(self, player):
         """Adds the player's selected move to the game."""
-        print(f'\nIt is {player}\'s turn.')
+        print(f'\nIt is {player}\'s turn. Please enter your move:')
         move = self.__get_move_input(self)
         self.game_state[move[0]][move[1]] = player
         if(self.__check_for_win(self, player)):
