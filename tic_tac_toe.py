@@ -37,7 +37,7 @@ class TicTacToe:
             print(f'{player} WINS!')
             return True
         # Check for tie
-        elif not any(' ' in x for x in g):
+        elif not any(' ' in x for x in gs):
             self.__print_game(self.game_state)
             print('TIE!')
             return True
