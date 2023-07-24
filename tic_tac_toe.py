@@ -24,15 +24,15 @@ class TicTacToe:
 
     def __check_for_win(self, player):
         """Determines if a player has won the game."""
-        g = self.game_state
-        if(g[0][0] != ' ' and g[0][0] == g[0][1] == g[0][2] or # horizontal
-           g[1][0] != ' ' and g[1][0] == g[1][1] == g[1][2] or # horizontal
-           g[2][0] != ' ' and g[2][0] == g[2][1] == g[2][2] or # horizontal
-           g[0][0] != ' ' and g[0][0] == g[1][0] == g[2][0] or # vertical
-           g[0][1] != ' ' and g[0][1] == g[1][1] == g[2][1] or # vertical
-           g[0][2] != ' ' and g[0][2] == g[1][2] == g[2][2] or # vertical
-           g[0][0] != ' ' and g[0][0] == g[1][1] == g[2][2] or # diagonal
-           g[0][2] != ' ' and g[0][2] == g[1][1] == g[2][0]):  # diagonal
+        gs = self.game_state
+        if(gs[0][0] != ' ' and gs[0][0] == gs[0][1] == gs[0][2] or # row 1
+           gs[1][0] != ' ' and gs[1][0] == gs[1][1] == gs[1][2] or # row 2
+           gs[2][0] != ' ' and gs[2][0] == gs[2][1] == gs[2][2] or # row 3
+           gs[0][0] != ' ' and gs[0][0] == gs[1][0] == gs[2][0] or # column 1
+           gs[0][1] != ' ' and gs[0][1] == gs[1][1] == gs[2][1] or # column 2
+           gs[0][2] != ' ' and gs[0][2] == gs[1][2] == gs[2][2] or # column 3
+           gs[0][0] != ' ' and gs[0][0] == gs[1][1] == gs[2][2] or # diagonal
+           gs[0][2] != ' ' and gs[0][2] == gs[1][1] == gs[2][0]):  # diagonal
             self.__print_game(self.game_state)
             print(f'{player} WINS!')
             return True
@@ -84,12 +84,12 @@ class TicTacToe:
 
     def __print_game(game_state):
         """Prints the current state of the game."""
-        g = game_state
-        print(' ',g[0][0],'|',g[0][1],'|',g[0][2])
+        gs = game_state
+        print(' ',gs[0][0],'|',gs[0][1],'|',gs[0][2])
         print('-------------')
-        print(' ',g[1][0],'|',g[1][1],'|',g[1][2])
+        print(' ',gs[1][0],'|',gs[1][1],'|',gs[1][2])
         print('-------------')
-        print(' ',g[2][0],'|',g[2][1],'|',g[2][2])
+        print(' ',gs[2][0],'|',gs[2][1],'|',gs[2][2])
 
     def __show_example(self):
         print('In this game you will enter a number for the row and a number for the column separated by a comma.')
