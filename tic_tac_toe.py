@@ -22,49 +22,20 @@ class TicTacToe:
             else:
                 print('Invalid selection. Please select either X or O.')
 
-    def __check_arr(self, arr, player):
-        if((arr[0] != ' ') and (arr[0] == arr[1] == arr[2])):
+    def __check_for_win(self, player):
+        """Determines if a player has won the game."""
+        gs = self.game_state
+        if(gs[0][0] != ' ' and gs[0][0] == gs[0][1] == gs[0][2] or # row 1
+           gs[1][0] != ' ' and gs[1][0] == gs[1][1] == gs[1][2] or # row 2
+           gs[2][0] != ' ' and gs[2][0] == gs[2][1] == gs[2][2] or # row 3
+           gs[0][0] != ' ' and gs[0][0] == gs[1][0] == gs[2][0] or # column 1
+           gs[0][1] != ' ' and gs[0][1] == gs[1][1] == gs[2][1] or # column 2
+           gs[0][2] != ' ' and gs[0][2] == gs[1][2] == gs[2][2] or # column 3
+           gs[0][0] != ' ' and gs[0][0] == gs[1][1] == gs[2][2] or # diagonal
+           gs[0][2] != ' ' and gs[0][2] == gs[1][1] == gs[2][0]):  # diagonal
             self.__print_game(self.game_state)
             print(f'{player} WINS!')
             return True
-
-    def __check_for_win(self, player):
-        """Determines if a player has won the game."""
-        print('check for win')
-        gs = self.game_state
-        l = len(gs)
-        arr = [' '] * l
-        for i in range(l):
-            # Checks rows
-            for j in range(l):
-                arr[j] = gs[i][j]
-            if(self.__check_arr(self, arr, player)):
-                return True
-            # checks columns
-            for j in range(l):
-                arr[j] = gs[j][i]
-            if(self.__check_arr(self, arr, player)):
-                return True
-            # checks diagonal
-            for j in range(l):
-                arr[j] = gs[j][j]
-            if(self.__check_arr(self, arr, player)):
-                return True
-            # TODO: check for other diagonal
-            for j in range(l):
-                print(f'{j}{j-1}')
-            
-        # if(gs[0][0] != ' ' and gs[0][0] == gs[0][1] == gs[0][2] or # row 1
-        #    gs[1][0] != ' ' and gs[1][0] == gs[1][1] == gs[1][2] or # row 2
-        #    gs[2][0] != ' ' and gs[2][0] == gs[2][1] == gs[2][2] or # row 3
-        #    gs[0][0] != ' ' and gs[0][0] == gs[1][0] == gs[2][0] or # column 1
-        #    gs[0][1] != ' ' and gs[0][1] == gs[1][1] == gs[2][1] or # column 2
-        #    gs[0][2] != ' ' and gs[0][2] == gs[1][2] == gs[2][2] or # column 3
-        #    gs[0][0] != ' ' and gs[0][0] == gs[1][1] == gs[2][2] or # diagonal
-        #    gs[0][2] != ' ' and gs[0][2] == gs[1][1] == gs[2][0]):  # diagonal
-        #     self.__print_game(self.game_state)
-        #     print(f'{player} WINS!')
-        #     return True
         # Check for tie
         if not any(' ' in x for x in gs):
             self.__print_game(self.game_state)
@@ -121,6 +92,7 @@ class TicTacToe:
         print(' ',gs[2][0],'|',gs[2][1],'|',gs[2][2])
 
     def __show_example(self):
+        """Prints an example for the user"""
         print('In this game you will enter a number for the row and a number for the column separated by a comma.')
         print('For example, input "1,3" will result in the following move:')
         game_example = copy.deepcopy(self.game_state)
@@ -128,6 +100,7 @@ class TicTacToe:
         self.__print_game(game_example)
     
     def __reset_game(self):
+        """Resets the state of the game"""
         for i in range(len(self.game_state)):
             for j in range(len(self.game_state[i])):
                 self.game_state[i][j] = ' '
