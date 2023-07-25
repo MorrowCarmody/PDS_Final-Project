@@ -32,24 +32,27 @@ class TicTacToe:
         """Determines if a player has won the game."""
         print('check for win')
         gs = self.game_state
-        arr = [' '] * 3
-        for i in range(3):
+        l = len(gs)
+        arr = [' '] * l
+        for i in range(l):
             # Checks rows
-            for j in range(3):
+            for j in range(l):
                 arr[j] = gs[i][j]
             if(self.__check_arr(self, arr, player)):
                 return True
             # checks columns
-            for j in range(3):
+            for j in range(l):
                 arr[j] = gs[j][i]
             if(self.__check_arr(self, arr, player)):
                 return True
-            for j in range(3):
-                # checks diagonal
-                print(f'{j}{j}',gs[j][j])
+            # checks diagonal
+            for j in range(l):
                 arr[j] = gs[j][j]
             if(self.__check_arr(self, arr, player)):
                 return True
+            # TODO: check for other diagonal
+            for j in range(l):
+                print(f'{j}{j-1}')
             
         # if(gs[0][0] != ' ' and gs[0][0] == gs[0][1] == gs[0][2] or # row 1
         #    gs[1][0] != ' ' and gs[1][0] == gs[1][1] == gs[1][2] or # row 2
