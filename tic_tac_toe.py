@@ -22,22 +22,48 @@ class TicTacToe:
             else:
                 print('Invalid selection. Please select either X or O.')
 
-    def __check_for_win(self, player):
-        """Determines if a player has won the game."""
-        gs = self.game_state
-        if(gs[0][0] != ' ' and gs[0][0] == gs[0][1] == gs[0][2] or # row 1
-           gs[1][0] != ' ' and gs[1][0] == gs[1][1] == gs[1][2] or # row 2
-           gs[2][0] != ' ' and gs[2][0] == gs[2][1] == gs[2][2] or # row 3
-           gs[0][0] != ' ' and gs[0][0] == gs[1][0] == gs[2][0] or # column 1
-           gs[0][1] != ' ' and gs[0][1] == gs[1][1] == gs[2][1] or # column 2
-           gs[0][2] != ' ' and gs[0][2] == gs[1][2] == gs[2][2] or # column 3
-           gs[0][0] != ' ' and gs[0][0] == gs[1][1] == gs[2][2] or # diagonal
-           gs[0][2] != ' ' and gs[0][2] == gs[1][1] == gs[2][0]):  # diagonal
+    def __check_arr(self, arr, player):
+        if((arr[0] != ' ') and (arr[0] == arr[1] == arr[2])):
             self.__print_game(self.game_state)
             print(f'{player} WINS!')
             return True
+
+    def __check_for_win(self, player):
+        """Determines if a player has won the game."""
+        print('check for win')
+        gs = self.game_state
+        arr = [' '] * 3
+        for i in range(3):
+            # Checks rows
+            for j in range(3):
+                arr[j] = gs[i][j]
+            if(self.__check_arr(self, arr, player)):
+                return True
+            # checks columns
+            for j in range(3):
+                arr[j] = gs[j][i]
+            if(self.__check_arr(self, arr, player)):
+                return True
+            for j in range(3):
+                # checks diagonal
+                print(f'{j}{j}',gs[j][j])
+                arr[j] = gs[j][j]
+            if(self.__check_arr(self, arr, player)):
+                return True
+            
+        # if(gs[0][0] != ' ' and gs[0][0] == gs[0][1] == gs[0][2] or # row 1
+        #    gs[1][0] != ' ' and gs[1][0] == gs[1][1] == gs[1][2] or # row 2
+        #    gs[2][0] != ' ' and gs[2][0] == gs[2][1] == gs[2][2] or # row 3
+        #    gs[0][0] != ' ' and gs[0][0] == gs[1][0] == gs[2][0] or # column 1
+        #    gs[0][1] != ' ' and gs[0][1] == gs[1][1] == gs[2][1] or # column 2
+        #    gs[0][2] != ' ' and gs[0][2] == gs[1][2] == gs[2][2] or # column 3
+        #    gs[0][0] != ' ' and gs[0][0] == gs[1][1] == gs[2][2] or # diagonal
+        #    gs[0][2] != ' ' and gs[0][2] == gs[1][1] == gs[2][0]):  # diagonal
+        #     self.__print_game(self.game_state)
+        #     print(f'{player} WINS!')
+        #     return True
         # Check for tie
-        elif not any(' ' in x for x in gs):
+        if not any(' ' in x for x in gs):
             self.__print_game(self.game_state)
             print('TIE!')
             return True
